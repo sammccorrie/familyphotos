@@ -3,6 +3,14 @@
 //
 // Class for performing a selection from a database
 //
+// Example:
+// $insert_query = new InsertQuery('tags');
+// $insert_query->null_value();
+// $insert_query->value(post('newtag'));
+// $insert_query->value(date_time_for_mysql());
+// $insert_query->query();
+// echo $database->insert_id;
+//
 //-----------------------------------------------------------------------------
 
 require_once 'database.php';
@@ -26,11 +34,7 @@ class InsertQuery {
   }
   
   function null_value() {
-    if ($this->m_value) {
-      $this->m_query .= ", ";
-    }
-    $this->m_value = true;
-    $this->m_query .= "NULL";
+    $this->value('NULL');
   }
   
   function query() {

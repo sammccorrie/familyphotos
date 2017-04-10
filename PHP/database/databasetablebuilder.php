@@ -3,9 +3,16 @@
 //
 // Class for building new tables
 //
+// Example:
+// $table_builder = new DatabaseTableBuilder('tags');
+// $table_builder->add_auto_incr_int('id');
+// $table_builder->add_string('tag', 32);
+// $table_builder->add_date_time('time_added');
+// $table_builder->create_table();
+//
 //-----------------------------------------------------------------------------
 
-require_once '../stringbuilder.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/familyphotos/PHP/stringbuilder.php';
 require_once 'database.php';
 
 //=============================================================================
