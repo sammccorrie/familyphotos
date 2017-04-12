@@ -34,7 +34,11 @@ class InsertQuery {
   }
   
   function null_value() {
-    $this->value('NULL');
+  	if ($this->m_value) {
+  		$this->m_query .= ", ";
+  	}
+  	$this->m_value = true;
+  	$this->m_query .= "NULL";
   }
   
   function query() {

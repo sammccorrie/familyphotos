@@ -1,3 +1,8 @@
+<?php 
+require_once 'PHP/tagsmanager.php';
+
+login_database();
+?>
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -20,6 +25,14 @@
           event.preventDefault();
           submit_tag();
         });
+
+        // Handle the add tag button
+        $('#add_tag_button').click(function() {
+          var id = $('#tag_select').val();
+          var name = $('#tag_select option:selected').text();
+          $('#new_photo_tags').append('<p>' + name + '</p>');
+          $("#tag_select option[value='" + id + "']").remove();
+        });
       });
 
       function submit_tag() {
@@ -39,10 +52,33 @@
   </head>
   <body>
     <h1>Family Photos</h1>
+    <p>New Tag Form</p>
     <form id="tag_form">
       <p>Tag Name</p>
       <input id="newtagname" type="text" name="tagname">
       <button>Submit</button>
+    </form>
+    <br>
+    <br>
+    <p>New Photo Form</p>
+    <form id="photo_form">
+    	<p>Photo</p>
+    	<input id="newphoto" type="file">
+    	<p>Tags</p>
+    	<select id='tag_select'> 
+<?php 
+	$tags_manager = new TagsManager();
+	$tags = $tags_manager->get_tags();
+	while ($tag = mysqli_fetch_assoc($tags)) {
+		$id = $tag["id"];
+		$name = $tag["tag"];
+		echo "<option value='$id'>$name</option>";
+	}
+?>
+    	</select>
+    	<button type='button' id='add_tag_button'>Add Tag</button>
+    	<div id='new_photo_tags'></div>
+    	<button>Submit</button>
     </form>
   </body>
 </html>

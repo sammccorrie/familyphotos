@@ -13,20 +13,10 @@ class SelectQuery {
   function __construct($types) {
     $this->m_query = "SELECT $types FROM ";
     $this->m_where = false;
-    $this->m_set = false;
   }
   
   function set_table($table) {
     $this->m_query .= "$table ";
-  }
-  
-  function set($key, $value) {
-    if ($this->m_set) {
-      $this->m_query .= ", $key='$value' ";
-    } else {
-      $this->m_set = true;
-      $this->m_query .= "SET $key='$value' ";
-    }
   }
   
   function where($key, $value) {
@@ -61,5 +51,4 @@ class SelectQuery {
   
   private $m_query;
   private $m_where;
-  private $m_set;
 }
